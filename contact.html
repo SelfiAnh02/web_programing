@@ -6,8 +6,10 @@
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Selfi Amanah">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="style.css"> -->
-
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@100..800&display=swap" rel="stylesheet">
     <title>Pemrograman WEB</title>
 </head>
 <body>
@@ -22,6 +24,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </nav>
         <!-- membuat bar pencarian -->
@@ -43,12 +46,12 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, autem inventore?<br>
                  Laborum ad incidunt error itaque, sit soluta explicabo reprehenderit consequatur aliquam fugit nesciunt quos rem tempora earum dolorem ullam!</p>
             <div class="form">
-                <legend style="border: 1px solid black; width: 500px; padding: 10px; border-radius: 5px;">
+                <legend style="border: 1px solid black; width: 50%; padding: 10px; border-radius: 5px;">
                 <form>
-                    <label for="name">Name:</label>
+                    <label for="name">Name:</label> <br>
                     <input type="text" id="name" name="name" placeholder="Full Name" required><br>
-                    <label for="email"> Email:</label> 
-                    <input type="email" id="email" name="email" placeholder="Email" required> <br>
+                    <label for="email"> Email:</label> <br>
+                    <input type="email" id="email" name="email" placeholder="Email" required> <br
                     <label for="message">Your Mesagge: </label><br>
                     <textarea id="message" name="message" rows="4" cols="40" placeholder="Write your message here..." required></textarea>
                 </form>

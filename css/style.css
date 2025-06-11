@@ -4,11 +4,12 @@
 body{
     padding: 0;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Playpen Sans Hebrew;
     color: rgb(135, 21, 21);
     background-color: rgb(244, 231, 231);
     margin: 0;
     box-sizing: border-box;
+     
 }
 header {
     background-color: #ec4141;
@@ -31,7 +32,7 @@ nav ul{
 }
 nav a{
     text-decoration: none;
-    text-shadow: rgb(230, 202, 207) 3px 3px 1px;
+    text-shadow: rgb(236, 93, 120) 3px 3px 1px;
     color: rgb(135, 21, 21);
     font-weight: bold;
     ;
@@ -61,3 +62,4 @@ nav a:hover{
     font-weight: bold;
     cursor: pointer;
 }
+
