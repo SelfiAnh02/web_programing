@@ -19,14 +19,15 @@
         <div class="logo">
             <img src="img/logo2.png" alt="Logo" width="110px">
             <h1>Selfi Amanah</h1>
-            <h5>C2C023511</h5>
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
+                <li><a href="datamahasiswa.php">Data Mahasiswa</a></li>
+
             </ul>
         </nav>
         <div class="search-bar">

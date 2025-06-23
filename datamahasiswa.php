@@ -1,3 +1,19 @@
+<?php
+    
+
+   require 'function.php';
+    // Query untuk mengambil data mahasiswa
+    $query = "SELECT * FROM mahasiswa";
+    $rows = tampilData($query);
+    // mysqli_fetch_row()
+    //  mysqli_fetch_assoc()
+    //  mysqli_fetch_array()
+    // mysqli_fetch_object()
+
+    // $mhs = mysqli_query($result);
+    // var_dump($mhs);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +22,12 @@
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Selfi Amanah">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="x-icon" href="img/favicon1.ico" type="img/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <title>Pemrograman WEB</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@100..800&display=swap" rel="stylesheet">
-
 </head>
 <body>
-    <!-- membuat semantic tag header untuk memudahkan -->
+        <!-- membuat semantic tag header untuk memudahkan -->
     <header>
         <div class="logo">
             <img src="img/logo2.png" alt="Logo" width="110px">
@@ -39,22 +52,36 @@
             <a href="#"><img src="img/instagram.png" alt="Instagram" width="30px"></a>
         </div> -->
     </header>
-    <!-- <hr size="2px" color="maroon" width="90%" align="center"> -->
-    <main>
-        <legend style="border: 1px solid black; width: 500px; padding: 10px; border-radius: 5px;">
-        <h1>Login</h1>
-        <form class="form-login">
-            <label for="email">Email:</label> <br>
-            <input type="email" id="email" name="email" placeholder="Email" required> <br>
-            <label for="password">Password:</label> <br>
-            <input type="password" id="password" name="password" placeholder="Password" required> <br>
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember">Remember Me</label> <br>
-            <input type="submit"><br>
-            <p>Belum punya akun?</p>
-            <p><a href="register.html">Klik di sini untuk Buat Akun -></a></p>
 
-        </form>
+    <main>
+        <h1>Data Mahasiswa</h1>
+        <a href="tambahdata.php">
+            <button type="button" class="tambah-data">
+                Tambah Data
+
+            </button>
+        </a>
+        <table border="1" cellspacing="0" cellpadding="10px">
+            <tbody>
+            <?php $no = 1; foreach ($rows as $row): ?>
+            <tr>
+                <td><?php echo $no++; ?></td>
+                <td>
+                    <img src="img/mhs/<?php echo($row['foto']) ?>" alt="Foto" width="80" height="80">
+                </td>
+                <td><?php echo ($row['nama']); ?></td>
+                <td><?php echo ($row['nim']); ?></td>
+                <td><?php echo ($row['jurusan']); ?></td>
+                <td><?php echo ($row['alamat']); ?></td>
+                <td>
+                    <a href="hapusdata.php/?id="></a>
+                </td>
+                
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+
+        </table>
     </main>
 </body>
 </html>
