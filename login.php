@@ -1,3 +1,24 @@
+<?php
+
+    require 'function.php';
+
+    if (isset($_POST['login'])) {
+        if (login($_POST) > 0) {
+            echo "<script>
+                    alert('Login berhasil!');
+                    document.location.href = 'index.php';
+                </script>";
+        } else {
+            echo "<script>
+                    alert('Login gagal!');
+                    document.location.href = 'login.php';
+                </script>";
+        }
+    }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

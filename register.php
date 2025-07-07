@@ -1,3 +1,15 @@
+<?php
+    require 'function.php';
+
+    if (isset($_POST['submit'])) 
+    {
+        $message = register($_POST);
+        echo "<script>
+                alert('". addslashes($message) . "');
+              </script>";
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
