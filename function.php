@@ -5,9 +5,38 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
     {
         die('Connection failed' . mysqli_connect_error());
     }else {
-        
-    }   
 
+    }
+
+    
+    function tambahData($data) {
+        global $connection;
+        
+        $nama = $data["nama"];
+        $email = $data["nim"];    
+        $jurusan = $data["jurusan"];
+        $alamat = $data["alamat"];
+        
+        $file = $_FILES["foto"]["name"];
+        $namafile = date('DMY_Hm') . '_'. $file;
+        $tmp = $_FILES["foto"]["tmp_name"]; 
+        $folder = "img/";
+        $path = $folder . $namafile;
+        
+        if (move_uploaded_file($tmp, $path)) 
+        {
+            // Query untuk memasukkan data ke dalam tabel mahasiswa
+            $query = "INSERT INTO mahasiswa VALUES ('', '$nama', '$email', '$jurusan', '$alamat', '$namafile')";
+            
+            mysqli_query($connection, $query);
+            
+            return mysqli_affected_rows($connection);
+            
+        }else 
+        {
+            return mysqli_affected_rows($connection);
+        } 
+    }
     
     function tampilData() {
         global $connection;
@@ -20,95 +49,97 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
         
         return $result;
     }
-
-
-    function tambahData($data) {
-        global $connection;
+    
+    function ubahdata($data, $id)
+    {
+        global $koneksi;
         
-        $nama = htmlspecialchars($data["name"]);
-        $email = htmlspecialchars($data["email"]);
-        $password = htmlspecialchars($data["password"]);
-        $umur = htmlspecialchars($data["umur"]);
-        $tanggal_lahir = htmlspecialchars($data["tanggal lahir"]);
-        $fav_color = htmlspecialchars($data["fav-color"]);
-        $foto = htmlspecialchars($data["foto"]);
-        $kelamin = htmlspecialchars($data["kelamin"]);
-        $hobi = implode(", ", $data["hobi"]); // Menggabungkan hobi yang dipilih
-        $negara = htmlspecialchars($data["negara"]);
-
-        // Query untuk memasukkan data ke dalam tabel mahasiswa
-        $query = "INSERT INTO mahasiswa (nama, email, password, umur, tanggal_lahir, fav_color, foto, kelamin, hobi, negara) 
-                  VALUES ('$nama', '$email', '$password', '$umur', '$tanggal_lahir', '$fav_color', '$foto', '$kelamin', '$hobi', '$negara')";
+        $nama    = $data["nama"];
+        $nim     = $data["nim"];
+        $jurusan = $data["jurusan"];
+        $alamat  = $data["alamat"];
         
-        if (mysqli_query($connection, $query)) {
-            return mysqli_affected_rows($connection);
+        $file = $_FILES['foto']['name'];
+        $tmp  = $_FILES['foto']['tmp_name'];
+        
+        if (!empty($file)) {
+            // Jika ada foto baru
+            $namafile = date('dmY_His') . '_' . $file;
+            $folder   = 'image/';
+            $path     = $folder . $namafile;
+            
+            if (move_uploaded_file($tmp, $path)) {
+                $query = "UPDATE mahasiswa SET 
+                            foto = '$namafile',
+                            nama = '$nama',
+                            nim = '$nim',
+                            jurusan = '$jurusan',
+                            alamat = '$alamat'
+                        WHERE id = $id";
+            } else {
+                return 0; // gagal upload file
+            }
         } else {
-            die("Query gagal: " . mysqli_error($connection));
+            // Tanpa ganti foto
+            $query = "UPDATE mahasiswa SET 
+                        nama = '$nama',
+                        nim = '$nim',
+                        jurusan = '$jurusan',
+                        alamat = '$alamat'
+                    WHERE id = $id";
         }
-    }
-
+        
+        mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
+        return mysqli_affected_rows($koneksi);
+    } 
+    
     function hapusData($id) {
         global $connection;
         
         // Query untuk menghapus data berdasarkan ID
         $query = "DELETE FROM mahasiswa WHERE id = $id";
-        
-        if (mysqli_query($connection, $query)) {
-            return mysqli_affected_rows($connection);
-        } else {
-            die("Query gagal: " . mysqli_error($connection));
+        mysqli_query($connection, $query);
+
+        return mysqli_affected_rows($connection);
+    }
+    function register($data)
+    {
+        global $koneksi;
+
+        $username = stripslashes(trim($data["username"]));
+        $password1 = trim($data["password1"]);
+        $password2 = trim($data["password2"]);
+
+        $queryusername = "SELECT id from user 
+        where username = $username";
+
+        $username_check = mysqli_query($koneksi , $queryusername);
+
+        if(mysqli_num_rows($username_check) > 0)
+        {
+            return "Username Sudah Terdaftar!";
         }
-    }   
 
-    function ubahData($data) {
-        global $connection;
-        
-        $id = htmlspecialchars($data["id"]);
-        $nama = htmlspecialchars($data["name"]);
-        $email = htmlspecialchars($data["email"]);
-        $password = htmlspecialchars($data["password"]);
-        $umur = htmlspecialchars($data["umur"]);
-        $tanggal_lahir = htmlspecialchars($data["tanggal lahir"]);
-        $fav_color = htmlspecialchars($data["fav-color"]);
-        $foto = htmlspecialchars($data["foto"]);
-        $kelamin = htmlspecialchars($data["kelamin"]);
-        $hobi = implode(", ", $data["hobi"]); // Menggabungkan hobi yang dipilih
-        $negara = htmlspecialchars($data["negara"]);
-
-        // Query untuk memperbarui data berdasarkan ID
-        $query = "UPDATE mahasiswa SET nama='$nama', email='$email', password='$password', umur='$umur', 
-                  tanggal_lahir='$tanggal_lahir', fav_color='$fav_color', foto='$foto', kelamin='$kelamin', 
-                  hobi='$hobi', negara='$negara' WHERE id=$id";
-        
-        if (mysqli_query($connection, $query)) {
-            return mysqli_affected_rows($connection);
-        } else {
-            die("Query gagal: " . mysqli_error($connection));
+        if(!preg_match('/^[a-zA-Z0-9._-]+$/' , $username));
+        {
+            return "Username Tidak Valid!";
         }
-    }   
 
-    function register($data) {
-        global $connection;
-
-        $nama = htmlspecialchars($data["name"]);
-        $email = htmlspecialchars($data["email"]);
-        $password = htmlspecialchars($data["password"]);
-        $umur = htmlspecialchars($data["umur"]);
-        $tanggal_lahir = htmlspecialchars($data["tanggal lahir"]);
-        $fav_color = htmlspecialchars($data["fav-color"]);
-        $foto = htmlspecialchars($data["foto"]);
-        $kelamin = htmlspecialchars($data["kelamin"]);
-        $hobi = implode(", ", $data["hobi"]); // Menggabungkan hobi yang dipilih
-        $negara = htmlspecialchars($data["negara"]);
-
-        // Query untuk memasukkan data ke dalam tabel mahasiswa
-        $query = "INSERT INTO mahasiswa (nama, email, password, umur, tanggal_lahir, fav_color, foto, kelamin, hobi, negara) 
-                  VALUES ('$nama', '$email', '$password', '$umur', '$tanggal_lahir', '$fav_color', '$foto', '$kelamin', '$hobi', '$negara')";
+        if($password1 !== $password2)
+        {
+            return "Konfirmasi Password Salah!";
+        }
         
-        if (mysqli_query($connection, $query)) {
-            return mysqli_affected_rows($connection);
-        } else {
-            die("Query gagal: " . mysqli_error($connection));
+        $hash_password = password_hash($password1, PASSWORD_DEFAULT);
+
+        $query_insert = "INSERT INTO user VALUES ('' , '$username' , '$hash_password')";
+
+        if(mysqli_query($koneksi, $query_insert))
+        {
+            return "Registrasi Berhasil";
+        } else 
+        {
+            return "Gagal" . mysqli_error($koneksi);
         }
     }
 

@@ -1,97 +1,46 @@
 <?php
-    require 'function.php';
 
-    if (isset($_POST['submit'])) 
-    {
-        $message = register($_POST);
-        echo "<script>
-                alert('". addslashes($message) . "');
-              </script>";
-    }
+require "function.php";
 
+if (isset($_POST["submit"])) {
+    $message = register($_POST);
+    echo "
+    <script>
+        alert('" . addslashes($message) . "');
+    </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Pemrograman WEB">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="author" content="Selfi Amanah">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Hebrew:wght@100..800&display=swap" rel="stylesheet">
-    <title>Pemrograman WEB</title>
+    <title>Register Web Informatika</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <!-- membuat semantic tag header untuk memudahkan -->
-    <header>
-        <div class="logo">
-            <img src="img/logo2.png" alt="Logo" width="110px">
-            <h1>Selfi Amanah</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="datamahasiswa.php">Data Mahasiswa</a></li>
-            </ul>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button type="submit">Search</button>
-        </div>
-        <!-- <div class="social-media">
-            <a href="#"><img src="img/facebook.png" alt="Facebook" width="30px"></a>
-            <a href="#"><img src="img/twitter.png" alt="Twitter" width="30px"></a>
-            <a href="#"><img src="img/instagram.png" alt="Instagram" width="30px"></a>
-        </div> -->
-    </header>
-    <!-- <hr size="2px" color="maroon" width="90%" align="center"> -->
-    <main>
-        <legend style="border: 1px solid black; width: 500px; padding: 10px; border-radius: 5px;">
-        <h1>Register</h1>
-        <form class="form-login">
-            <label for="name">Nama Lengkap:</label><br>
-            <input type="text" id="name" name="name" placeholder="Nama Lengkap" required><br>
-            <label for="email">Email:</label> <br>
-            <input type="email" id="email" name="email" placeholder="Email" required> <br>
-            <label for="password">Password:</label> <br>
-            <input type="password" id="password" name="password" placeholder="Password" required> <br>
-            <label for="umur">Umur</label><br>
-            <input type="number" id="umur" name="umur" placeholder="Umur" required> <br>
-            <label for="tanggal lahir">Tanggal lahir</label><br>
-            <input type="date" id="tanggal lahir" name="tanggal lahir" required> <br>
-            <label for="fav-color">Warna Favorit</label><br>
-            <input type="color" id="fav-color" name="fav-color" required> <br>
-            <label for="foto">Upload Foto Profil</label><br>
-            <input type="file" id="foto" name="foto" accept="image/*" required> <br>
-            <label for="kelamin">Pilihan Jenis Kelamin</label><br>
-            <input type="radio" id="laki-laki" name="kelamin" value="Laki-laki">
-            <label>Laki-Laki</label>
-            <input type="radio" id="perempuan" name="kelamin" value="Perempuan">
-            <label >Perempuan</label><br><br>
-            <label for="hobi">Pilihan Hobi</label><br>
-            <input type="checkbox" id="hobi1" name="hobi">
-            <label for="hobi1">Membaca</label><br>
-            <input type="checkbox" id="hobi2" name="hobi">
-            <label for="hobi2">Traveling</label><br>
-            <input type="checkbox" id="hobi3" name="hobi">
-            <label for="hobi3">Olahraga</label><br><br>
-            <label for="negara">Pilihan Negara</label><br>
-            <select id="negara" name="negara" required>
-                <option>SIlakan Pilih</option>
-                <option value="usa">USA</option>
-                <option value="uk">UK</option>
-                <option value="indonesia">Indonesia</option>
-            </select><br><br>
-            <label for="biografi">Biografi Singkat</label><br>
-            <textarea id="biografi" name="biografi" rows="4" cols="40" placeholder="Tulis biografi singkat disini..." required></textarea><br><br>
-            <input type="submit">
-        </form>
-    </main>
+
+<body class="bg-light">
+    <div class="container mt-5 p-4" style="max-width: 600px; background-color: #ffe6f0;">
+
+        <h3 class="card-title mb-4 text-center">Register</h3>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="Username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password1" placeholder="Password" required>
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Konfirmasi Password</label>
+                <input type="password" class="form-control" id="password" name="password2" placeholder="Konfirmasi Password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100" name="Submit">Submit</button>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

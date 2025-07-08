@@ -36,9 +36,9 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.php">Login</a></li>
                 <li><a href="datamahasiswa.php">Data Mahasiswa</a></li>
             </ul>
         </nav>
@@ -58,12 +58,22 @@
         <a href="tambahdata.php">
             <button type="button" class="tambah-data">
                 Tambah Data
-
             </button>
         </a>
         <table border="1" cellspacing="0" cellpadding="10px">
-            <tbody>
-            <?php $no = 1; foreach ($rows as $row): ?>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Foto</th>
+                    <th>Nama</th>
+                    <th>NIM</th>
+                    <th>Jurusan</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <?php $no = 1; 
+        foreach ($rows as $row): ?>
             <tr>
                 <td><?php echo $no++; ?></td>
                 <td>
@@ -79,7 +89,6 @@
                 
             </tr>
             <?php endforeach; ?>
-        </tbody>
 
         </table>
     </main>

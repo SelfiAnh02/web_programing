@@ -1,58 +1,23 @@
 <?php
-$connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
+require 'function.php';
 
-    if(!$connection)
-    {
-        die('Connection failed' . mysqli_connect_error());
-    }
-
-    if(isset($_POST['submit'])) {
-        // var_dump($_POST);
-        $nama = $_POST['nama'];
-        $nim = $_POST['nim'];
-        $jurusan = $_POST['jurusan'];
-        $alamat = $_POST['alamat'];
-
-        $file = $_FILES['foto']['name'];
-        $namafile = date('DMY_Hm') . '_' . $file;
-        $tmp = $_FILES['foto']['tmp_name'];
-        $folder = 'img/mhs/';
-        $path = $folder . $namafile; 
-        
-        if (move_uploaded_file($tmp, $path)) {
-            // File uploaded successfully
-            $query = "INSERT INTO mahasiswa (nama, nim, jurusan, alamat, foto) VALUES ('$nama', '$nim', '$jurusan', '$alamat', '$namafile')";
-            mysqli_query($connection, $query);
-
-        } 
-        if (mysqli_affected_rows($connection) > 0) {
-            // Redirect to data mahasiswa page after successful insertion
-            echo "
+if (isset($_POST["submit"])) {
+    if (tambahdata($_POST) > 0) {
+        echo "
             <script>
-                alert('Data berhasil ditambahkan!');
-                document.location.href = 'datamahasiswa.php';
-            </script>";
-        } else {
-            // Handle error
-            echo "Error: " . mysqli_error($connection);
-        }
-
-        // Handle file upload
-        // if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-        //     $foto = $_FILES['foto']['name'];
-        //     move_uploaded_file($_FILES['foto']['tmp_name'], "img/" . $foto);
-        // } else {
-        //     $foto = 'default.jpg'; // Use a default image if no file is uploaded
-        // }
-
-        // Insert data into database
-        // $query = "INSERT INTO mahasiswa (nama, nim, jurusan, alamat, foto) VALUES ('$nama', '$nim', '$jurusan', '$alamat', '$foto')";
-        // mysqli_query($connection, $query);
-        
-        // header("Location: datamahasiswa.php");
+                alert('Data Berhasil Ditambahkan!');
+                document.location.href= 'datamahasiswa.php';
+            </script>
+            ";
+    } else {
+        echo "
+            <script>
+                alert('Data Gagal Ditambahkan!');
+                document.location.href= 'datamahasiswa.php';
+            </script>
+            ";
     }
-
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -77,9 +42,9 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="login.php">Login</a></li>
                 <li><a href="datamahasiswa.php">Data Mahasiswa</a></li>
             </ul>
         </nav>
