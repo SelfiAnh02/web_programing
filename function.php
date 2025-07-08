@@ -1,5 +1,5 @@
 <?php
-$connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
+    $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
 
     if(! $connection)
     {
@@ -20,13 +20,13 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
         $file = $_FILES["foto"]["name"];
         $namafile = date('DMY_Hm') . '_'. $file;
         $tmp = $_FILES["foto"]["tmp_name"]; 
-        $folder = "img/";
+        $folder = "img/mhs/";
         $path = $folder . $namafile;
         
         if (move_uploaded_file($tmp, $path)) 
         {
             // Query untuk memasukkan data ke dalam tabel mahasiswa
-            $query = "INSERT INTO mahasiswa VALUES ('', '$nama', '$email', '$jurusan', '$alamat', '$namafile')";
+            $query = "INSERT INTO mahasiswa VALUES ('', '$namafile', '$nama', '$email', '$jurusan', '$alamat')";
             
             mysqli_query($connection, $query);
             
@@ -38,21 +38,27 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
         } 
     }
     
-    function tampilData() {
+    function tampilData($query) 
+    {
         global $connection;
-        $query = "SELECT * FROM mahasiswa";
         $result = mysqli_query($connection, $query);
         
         if (!$result) {
             die("Query gagal: " . mysqli_error($connection));
         }
-        
-        return $result;
+
+        $rows = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
+
     
     function ubahdata($data, $id)
     {
-        global $koneksi;
+        global $connection;
         
         $nama    = $data["nama"];
         $nim     = $data["nim"];
@@ -65,7 +71,7 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
         if (!empty($file)) {
             // Jika ada foto baru
             $namafile = date('dmY_His') . '_' . $file;
-            $folder   = 'image/';
+            $folder   = 'img/mhs/';
             $path     = $folder . $namafile;
             
             if (move_uploaded_file($tmp, $path)) {
@@ -88,11 +94,12 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
                         alamat = '$alamat'
                     WHERE id = $id";
         }
-        
-        mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
-        return mysqli_affected_rows($koneksi);
-    } 
-    
+
+        mysqli_query($connection, $query) or die(mysqli_error($connection));
+        return mysqli_affected_rows($connection);
+
+    }
+
     function hapusData($id) {
         global $connection;
         
@@ -102,9 +109,10 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
 
         return mysqli_affected_rows($connection);
     }
+
     function register($data)
     {
-        global $koneksi;
+        global $connection;
 
         $username = stripslashes(trim($data["username"]));
         $password1 = trim($data["password1"]);
@@ -113,7 +121,7 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
         $queryusername = "SELECT id from user 
         where username = $username";
 
-        $username_check = mysqli_query($koneksi , $queryusername);
+        $username_check = mysqli_query($con , $queryusername);
 
         if(mysqli_num_rows($username_check) > 0)
         {
@@ -134,12 +142,12 @@ $connection = mysqli_connect("localhost:3306", "root", "", "web_informatic");
 
         $query_insert = "INSERT INTO user VALUES ('' , '$username' , '$hash_password')";
 
-        if(mysqli_query($koneksi, $query_insert))
+        if(mysqli_query($con, $query_insert))
         {
             return "Registrasi Berhasil";
         } else 
         {
-            return "Gagal" . mysqli_error($koneksi);
+            return "Gagal" . mysqli_error($con);
         }
     }
 

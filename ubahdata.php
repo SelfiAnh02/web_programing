@@ -1,29 +1,29 @@
 <?php
-require 'function.php';
+    require 'function.php';
 
-// Ambil ID dari URL
-$id = $_GET["id"];
-$query = "SELECT * FROM mahasiswa WHERE id = '$id'";
-$mhs = tampildata($query)[0]; // perbaikan: akses indeks array, bukan $query[0]
+    // Ambil ID dari URL
+    $id = $_GET["id"];
+    $query = "SELECT * FROM mahasiswa WHERE id = '$id'";
+    $mhs = tampilData($query)[0]; // perbaikan: akses indeks array, bukan $query[0]
 
-// Proses saat tombol submit ditekan
-if (isset($_POST["submit"])) {
-    if (ubahdata($_POST, $id) > 0) {
-        echo "
-            <script>
-                alert('Data Berhasil Diubah!');
-                document.location.href= '../datamahasiswa.php';
-            </script>
-        ";
-    } else {
-        echo "
-            <script>
-                alert('Data Gagal Diubah!');
-                document.location.href= '../datamahasiswa.php';
-            </script>
-        ";
+    // Proses saat tombol submit ditekan
+    if (isset($_POST["submit"])) {
+        if (ubahdata($_POST, $id) > 0) {
+            echo "
+                <script>
+                    alert('Data Berhasil Diubah!');
+                    document.location.href= 'datamahasiswa.php';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data Gagal Diubah!');
+                    document.location.href= 'datamahasiswa.php';
+                </script>
+            ";
+        }
     }
-}
 ?>
 
 <!DOCTYPE html>

@@ -2,7 +2,7 @@
 require 'function.php';
 
 if (isset($_POST["submit"])) {
-    if (tambahdata($_POST) > 0) {
+    if (tambahData($_POST) > 0) {
         echo "
             <script>
                 alert('Data Berhasil Ditambahkan!');

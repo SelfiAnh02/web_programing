@@ -84,8 +84,14 @@
                 <td><?php echo ($row['jurusan']); ?></td>
                 <td><?php echo ($row['alamat']); ?></td>
                 <td>
-                    <a href="hapusdata.php/?id="></a>
+                    <a href="ubahdata.php?id=<?php echo $row['id']; ?>">
+                        <button>Ubah</button>
+                    </a>
+                    <a href="hapusdata.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Yakin ingin menghapus?');">
+                        <button>Hapus</button>
+                    </a>
                 </td>
+
                 
             </tr>
             <?php endforeach; ?>
