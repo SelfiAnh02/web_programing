@@ -1,7 +1,13 @@
 <?php
     
+    session_start();
 
-   require 'function.php';
+    if (!isset($_SESSION["login"])) {
+        header("Location: login.php");
+        exit;
+    }
+
+    require 'function.php';
     // Query untuk mengambil data mahasiswa
     $query = "SELECT * FROM mahasiswa";
     $rows = tampilData($query);
@@ -38,7 +44,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="logout.php">Logout</a></li>
                 <li><a href="datamahasiswa.php">Data Mahasiswa</a></li>
             </ul>
         </nav>

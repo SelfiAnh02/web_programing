@@ -1,22 +1,44 @@
 <?php
 
     require 'function.php';
-
-    if (isset($_POST['login'])) {
-        if (login($_POST) > 0) {
-            echo "<script>
-                    alert('Login berhasil!');
-                    document.location.href = 'index.php';
-                </script>";
-        } else {
-            echo "<script>
-                    alert('Login gagal!');
-                    document.location.href = 'login.php';
-                </script>";
-        }
+    session_start();
+    if(isset($_SESSION["login"])) {
+        header("Location: datamahasiswa.php");
+        exit;
     }
 
 
+    if (isset($_POST['login'])) 
+    {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Cek apakah username dan password sesuai
+        $query = "SELECT * FROM user WHERE username = '$username'";
+        $result = mysqli_query($connection, $query);   
+        if (mysqli_num_rows($result) === 1) {
+            $user = mysqli_fetch_assoc($result);
+            if (password_verify($password, $user['password'])) {
+                // Set session atau cookie jika diperlukan
+                $_SESSION["login"] = $user['id'];
+                echo "<script>
+                        alert('Login berhasil!');
+                        document.location.href = 'datamahasiswa.php';
+                    </script>";
+            } else {
+                echo "<script>
+                        alert('Password salah!');
+                        document.location.href = 'login.php';
+                    </script>";
+            }
+        } else {
+            echo "<script>
+                    alert('Username tidak ditemukan!');
+                    document.location.href = 'login.php';
+                </script>";
+        }
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -64,18 +86,18 @@
     <main>
         <legend style="border: 1px solid black; width: 500px; padding: 10px; border-radius: 5px;">
         <h1>Login</h1>
-        <form class="form-login">
-            <label for="email">Email:</label> <br>
-            <input type="email" id="email" name="email" placeholder="Email" required> <br>
+        <form class="form-login" method="post" enctype="multipart/form-data">
+            <label for="Username">Username:</label> <br>
+            <input type="text" id="text" name="username" placeholder="Username" required> <br>
             <label for="password">Password:</label> <br>
             <input type="password" id="password" name="password" placeholder="Password" required> <br>
             <input type="checkbox" id="remember" name="remember">
             <label for="remember">Remember Me</label> <br>
-            <input type="submit"><br>
+            <input type="submit" name="login" value="Login"><br>
             <p>Belum punya akun?</p>
             <p><a href="register.php">Klik di sini untuk Buat Akun -></a></p>
-
         </form>
+
     </main>
 </body>
 </html>

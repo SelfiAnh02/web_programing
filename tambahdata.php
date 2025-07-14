@@ -1,23 +1,31 @@
 <?php
-require 'function.php';
 
-if (isset($_POST["submit"])) {
-    if (tambahData($_POST) > 0) {
-        echo "
-            <script>
-                alert('Data Berhasil Ditambahkan!');
-                document.location.href= 'datamahasiswa.php';
-            </script>
-            ";
-    } else {
-        echo "
-            <script>
-                alert('Data Gagal Ditambahkan!');
-                document.location.href= 'datamahasiswa.php';
-            </script>
-            ";
+    session_start();
+
+    if (!isset($_SESSION["login"])) {
+        header("Location: login.php");
+        exit;
     }
-}
+    require 'function.php';
+
+
+    if (isset($_POST["submit"])) {
+        if (tambahData($_POST) > 0) {
+            echo "
+                <script>
+                    alert('Data Berhasil Ditambahkan!');
+                    document.location.href= 'datamahasiswa.php';
+                </script>
+                ";
+        } else {
+            echo "
+                <script>
+                    alert('Data Gagal Ditambahkan!');
+                    document.location.href= 'datamahasiswa.php';
+                </script>
+                ";
+        }
+    }
 ?>
 
 <!DOCTYPE html>

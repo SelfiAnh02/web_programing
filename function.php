@@ -119,16 +119,16 @@
         $password2 = trim($data["password2"]);
 
         $queryusername = "SELECT id from user 
-        where username = $username";
+        where username = '$username'";
 
-        $username_check = mysqli_query($con , $queryusername);
+        $username_check = mysqli_query($connection , $queryusername);
 
         if(mysqli_num_rows($username_check) > 0)
         {
             return "Username Sudah Terdaftar!";
         }
 
-        if(!preg_match('/^[a-zA-Z0-9._-]+$/' , $username));
+        if(!preg_match('/^[a-zA-Z0-9._-]+$/' , $username))
         {
             return "Username Tidak Valid!";
         }
@@ -142,13 +142,39 @@
 
         $query_insert = "INSERT INTO user VALUES ('' , '$username' , '$hash_password')";
 
-        if(mysqli_query($con, $query_insert))
+        if(mysqli_query($connection, $query_insert))
         {
             return "Registrasi Berhasil";
         } else 
         {
-            return "Gagal" . mysqli_error($con);
+            return "Gagal" . mysqli_error($connection);
         }
     }
+
+    // function login($data)
+    // {
+    //     global $connection;
+
+    //     $username = stripslashes(trim($data["username"]));
+    //     $password = trim($data["password"]);
+
+    //     $query = "SELECT * FROM user WHERE username = '$username'";
+    //     $result = mysqli_query($connection, $query);
+
+    //     if(mysqli_num_rows($result) === 1)
+    //     {
+    //         $user = mysqli_fetch_assoc($result);
+    //         if(password_verify($password, $user['password']))
+    //         {
+    //             return true;
+    //         } else 
+    //         {
+    //             return false;
+    //         }
+    //     } else 
+    //     {
+    //         return false;
+    //     }
+    // }
 
 ?>
