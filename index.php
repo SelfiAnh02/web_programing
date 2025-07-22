@@ -45,7 +45,7 @@
         <h1>Home</h1>
         <div class="content">
             <h2>Welcome to Our Website</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
             <img src="img/logo2.png" alt="Our Office" width="20%">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p> 
         </div>
